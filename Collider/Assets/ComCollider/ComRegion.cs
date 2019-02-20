@@ -1,6 +1,14 @@
-﻿/*
-        碰撞触发器
- */
+﻿/** 
+ *Copyright(C) 2019 by 
+ *All rights reserved. 
+ *FileName:      ComRegion.cs
+ *Author:       刘成
+ *Version:      
+ *UnityVersion：
+ *Date:         
+ *Description:    ComRegion区块数据结构用于判定宫格范围内的碰撞事件
+ *History: 
+*/
 using System.Collections.Generic;
 using UnityEngine;
 

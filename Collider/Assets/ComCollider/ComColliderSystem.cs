@@ -1,7 +1,14 @@
-﻿/*
-    用于ComCollider的碰撞事件转发
-
- */
+﻿/** 
+ *Copyright(C) 2018 by 
+ *All rights reserved. 
+ *FileName:      ComColliderSystem.cs
+ *Author:       刘成
+ *Version:      
+ *UnityVersion：
+ *Date:         
+ *Description:    ComColliderSystem用于场景中Collider的碰撞函数计算及转发
+ *History: 
+*/
 
 
 using System;
@@ -9,7 +16,7 @@ using UnityEngine;
 
 namespace SnakeCollider
 {
-    public class ComColliderSystem : SingeltonCommon<ComColliderSystem>
+    public class ComColliderSystem : MonoBehaviour
     {
         #region Editor
         //行列数
@@ -180,6 +187,26 @@ namespace SnakeCollider
         #endregion
 
         #region Unity回调
+        private static ComColliderSystem instance;
+        public static ComColliderSystem Instance
+        {
+            get
+            {
+                return instance;
+            }
+
+            set
+            {
+                instance = value;
+            }
+        }
+
+        protected virtual void Awake()
+        {
+
+            instance = this;
+
+        }
 
         private void OnEnable()
         {
@@ -210,6 +237,8 @@ namespace SnakeCollider
                 comRegions[i].Update();
             }
         }
+
+
 
         #endregion
 

@@ -1,4 +1,16 @@
-﻿using System;
+﻿/** 
+ *Copyright(C) 2018 by 
+ *All rights reserved. 
+ *FileName:      
+ *Author:       刘成
+ *Version:      
+ *UnityVersion：
+ *Date:         
+ *Description:    Collider组件用于物体间的碰撞触发 isTrigger是开关用于是否接收碰撞事件 
+ *History: 
+*/
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace SnakeCollider
@@ -70,6 +82,14 @@ namespace SnakeCollider
             if (iComColliderExit != null)
                 onComColliderExit -= iComColliderExit.OnColliderExit;
 
+        }
+
+        /// <summary>
+        /// 更新事件库 防止使用的时候一定要更新一下库
+        /// </summary>
+        public void UpdateEvent() {
+            OnDisable();
+            OnEnable();
         }
 
         /// <summary>
@@ -145,8 +165,9 @@ namespace SnakeCollider
             if (!enabled) return;
 
             ColiderCenterPos = Camera.main.WorldToScreenPoint(transform.position + center);
-            coliderSidePos = Camera.main.WorldToScreenPoint(transform.position + Camera.main.transform.right * radius);
-            perspectiveRadius = Vector2.Distance(ColiderCenterPos, coliderSidePos);
+            coliderSidePos = Camera.main.WorldToScreenPoint(transform.position+center + Camera.main.transform.right * radius);
+            //增加碰撞器对缩放的大小的支持
+            perspectiveRadius = Vector2.Distance(ColiderCenterPos, coliderSidePos)* Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
 
             CheckOutColliderExit();
         }
@@ -158,8 +179,8 @@ namespace SnakeCollider
             Vector3 pos = transform.position;
           //  pos.x += radius;
           //修改成相机的Pos逻辑 可以防止Camera的逻辑
-            coliderSidePos = Camera.main.WorldToScreenPoint(pos+Camera.main.transform.right*radius);
-            perspectiveRadius = Vector2.Distance(ColiderCenterPos, coliderSidePos);
+            //coliderSidePos = Camera.main.WorldToScreenPoint(pos+Camera.main.transform.right*radius);
+          //  perspectiveRadius = Vector2.Distance(ColiderCenterPos, coliderSidePos)* Mathf.Max(transform.lossyScale.x, transform.lossyScale.y);
             MonoBehaviourEX.DrawCircle(transform.position + center, radius * Mathf.Max(transform.lossyScale.x, transform.lossyScale.y), 60);
         }
     }
